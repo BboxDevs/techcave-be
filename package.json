@@ -1,0 +1,9 @@
+{
+  "name": "techcave-be",
+  "version": "1.0.0",
+  "description": "Backend server for Techcave running on GraphQL + Express",
+  "main": "index.js",
+  "repository": "git@github.com:BboxDevs/techcave-be.git",
+  "author": "Jerick Iquin",
+  "license": "MIT"
+}
