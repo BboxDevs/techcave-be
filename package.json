@@ -7,7 +7,8 @@
   "author": "Jerick Iquin",
   "license": "MIT",
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.54.1",
+    "@typescript-eslint/parser": "^5.54.1",
     "eslint": "^8.0.1",
     "eslint-config-prettier": "^8.7.0",
     "eslint-config-standard-with-typescript": "^34.0.0",
@@ -22,9 +23,9 @@
     "nodemon": "^2.0.21",
     "prettier": "^2.8.4",
     "ts-node": "^10.9.1",
+    "tsc": "^2.0.4",
     "tsconfig-paths": "^4.1.2",
-    "typescript": "*",
-    "tsc": "^2.0.4"
+    "typescript": "*"
   },
   "scripts": {
     "prepare": "husky install"
