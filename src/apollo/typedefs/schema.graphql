@@ -48,3 +48,6 @@ type Job {
   externalLink: Url
 }
 
+type Query {
+  welcome(): String
+}
