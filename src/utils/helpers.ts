@@ -1,4 +1,5 @@
 import fs from 'fs';
+import path from 'path';
 import { z } from 'zod';
 
 type ErrorCallback = () => void;
@@ -24,4 +25,8 @@ export const returnValidatedURL = (
 
 export const readFile = (filePath: string) => {
   return fs.readFileSync(filePath, 'utf-8');
+};
+
+export const pathJoin = function (...args: string[]) {
+  return path.join(...args);
 };

@@ -1,5 +1,3 @@
-import path from 'path';
+import { pathJoin, readFile } from '@/utils/helpers';
 
-import { readFile } from '@/utils/helpers';
-
-export const typeDefs = readFile(path.join(__dirname, 'schema.graphql'));
+export const typeDefs = readFile(pathJoin(__dirname, 'schema.graphql'));
