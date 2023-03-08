@@ -2,7 +2,7 @@ import type { CodegenConfig } from '@graphql-codegen/cli';
 
 const config: CodegenConfig = {
   overwrite: true,
-  schema: './src/apollo/typedefs',
+  schema: './src/apollo/typedef',
   generates: {
     './src/apollo/__generated__/types.ts': {
       plugins: ['typescript', 'typescript-resolvers'],

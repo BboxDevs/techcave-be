@@ -1,3 +1,3 @@
 export const welcome = () => {
-  return 'Welcome to TECHCAVE';
+  return { message: 'Welcome to TECHCAVE' };
 };
