@@ -1,0 +1,50 @@
+scalar Url
+
+enum Role {
+  APPLICANT
+  EMPLOYER
+  ADMIN
+}
+
+interface User {
+  id: ID!
+  email: String!
+  password: String!
+  role: Role!
+}
+
+type Admin {
+  id: ID!
+  email: String!
+  password: String!
+  role: Role.ADMIN
+}
+
+type Applicant implements User {
+  id: ID!
+  email: String!
+  password: String!
+  role: Role.APPLICANT
+  firstName: String!
+  lastName: String!
+}
+
+type Employer implements User {
+  id: ID!
+  email: String!
+  password: String!
+  role: Role.EMPLOYER
+  firstName: String
+  lastName: String
+  company: String
+}
+
+type Job {
+  id: ID!
+  industry: String!
+  position: String!
+  description: String!
+  contact: Employer!
+  externalLink: Url
+}
+
