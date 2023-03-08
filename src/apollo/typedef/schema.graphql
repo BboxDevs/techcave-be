@@ -49,5 +49,5 @@ type Job {
 }
 
 type Query {
-  welcome(): String
+  welcome: String
 }
