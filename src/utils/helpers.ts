@@ -9,7 +9,7 @@ const isUrl = (input: string): boolean => {
   return urlSchema.safeParse(input).success;
 };
 
-const isString = (input: any): input is string => {
+const isString = (input: unknown): input is string => {
   return typeof input === 'string';
 };
 
