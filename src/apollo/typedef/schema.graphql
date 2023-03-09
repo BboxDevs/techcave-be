@@ -17,14 +17,14 @@ type Admin {
   id: ID!
   email: String!
   password: String!
-  role: Role.ADMIN
+  role: Role!
 }
 
 type Applicant implements User {
   id: ID!
   email: String!
   password: String!
-  role: Role.APPLICANT
+  role: Role!
   firstName: String!
   lastName: String!
 }
@@ -33,7 +33,7 @@ type Employer implements User {
   id: ID!
   email: String!
   password: String!
-  role: Role.EMPLOYER
+  role: Role!
   firstName: String
   lastName: String
   company: String
