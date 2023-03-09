@@ -1,7 +1,7 @@
 FROM postgres:14.7
 
 # Please pass in actual values on env variables
-ARG DB_DATABASE="dev"
+ARG DB_DATABASE="jobs"
 ARG DB_USERNAME="techcave"
 ARG DB_PASSWORD="p@ssw0rd"
 
