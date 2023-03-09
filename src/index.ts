@@ -30,7 +30,8 @@ const apolloServer = new ApolloServer<ApolloContext>({
     cors(),
     express.json(),
     expressMiddleware(apolloServer, {
-      context: async ({ req }) => {
+      // async ({req, res}) => {} express middleware context
+      context: async () => {
         // this is just a place holder for now
         return { token: 'token' };
       },
