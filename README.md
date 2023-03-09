@@ -27,4 +27,4 @@ This section is not necessarily needed in development. But just some notes inclu
 3. Run `yarn` to install additional dependencies added during init
 4. Run `yarn [codegen]` to generate the types where [codegen] is the answer you provided in one of the prompts from step 3 (What script in package.json should run the codegen?)
 
-**Note:** If you have implemented strict linting, you would need to add `/* eslint-disable @typescript-eslint/ban-types */` on the generated file
+**Note:** If you have implemented strict linting, you would need to add `/* eslint-disable @typescript-eslint/ban-types */` on the generated file, or add the file to `ignorePatterns` on eslint.
