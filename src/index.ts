@@ -1,3 +1,8 @@
+//-------- top level import and addAlias for compiled js -------------------------------
+import { addAlias } from 'module-alias';
+addAlias('@', __dirname);
+// -------------------------------------------------------------------------------------
+
 import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
