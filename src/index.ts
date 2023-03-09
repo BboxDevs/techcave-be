@@ -11,6 +11,7 @@ import express from 'express';
 import http from 'http';
 
 import { ApolloContext, resolvers, typeDef as typeDefs } from '@/apollo';
+import { PORT } from '@/config/internal';
 
 const app = express();
 const httpServer = http.createServer(app);
@@ -36,8 +37,8 @@ const apolloServer = new ApolloServer<ApolloContext>({
     })
   );
 
-  httpServer.listen(4000, () => {
+  httpServer.listen(PORT, () => {
     // eslint-disable-next-line no-console
-    console.log('Listening on port 4000');
+    console.log(`Listening on port ${PORT}`);
   });
 })();
