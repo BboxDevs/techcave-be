@@ -1,0 +1,13 @@
+version: '2'
+
+services:
+  api:
+    container_name: techcave-api
+    build: .
+    env_file:
+      - .env
+    ports:
+      - '${PORT}:${PORT}'
+    volumes:
+      - './:/app'
+      - '/app/node_modules'
