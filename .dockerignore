@@ -1,11 +1,10 @@
 .husky
-db/Dockerfile-pg
-db/test.sh
+docker
+docker
 node_modules
 .*
 .*/
 
 docker-compose*
-Dockerfile*
 
 README.md

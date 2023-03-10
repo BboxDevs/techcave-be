@@ -3,7 +3,12 @@ version: '2'
 services:
   api:
     container_name: techcave-api
-    build: .
+    build:
+      # used context at root to be able to copy everything outside
+      # where the dockerfile is located
+      context: .
+      # and that's why we're using relative path here. Relative to context
+      dockerfile: docker/Dockerfile
     env_file:
       - .env
     ports:
@@ -23,8 +28,8 @@ services:
   db:
     container_name: techcave-db
     build:
-      context: ./db
-      dockerfile: Dockerfile-pg
+      context: .
+      dockerfile: docker/Dockerfile-pg
       args:
         - DB_DATABASE=${DB_DATABASE:-jobs}
         - DB_USERNAME=${DB_USERNAME:-techcave}
