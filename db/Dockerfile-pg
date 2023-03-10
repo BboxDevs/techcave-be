@@ -1,3 +1,4 @@
+# Separate docker file needed for database in case we need to chang db in the future.
 FROM postgres:14.7
 
 # Please pass in actual values on env variables

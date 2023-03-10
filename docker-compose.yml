@@ -9,5 +9,51 @@ services:
     ports:
       - '${PORT}:${PORT}'
     volumes:
-      - './:/app'
-      - '/app/node_modules'
+      - 'app:/app'
+      # included below to have separate binding for node modules
+      - 'app_node_modules:/app/node_modules'
+    links:
+      - 'db:postgres'
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - techcave
+
+  db:
+    container_name: techcave-db
+    build:
+      context: ./db
+      dockerfile: Dockerfile-pg
+      args:
+        - DB_DATABASE=${DB_DATABASE:-jobs}
+        - DB_USERNAME=${DB_USERNAME:-techcave}
+        - DB_PASSWORD=${DB_PASSWORD:-password}
+    env_file:
+      - .env
+    expose:
+      - 5432
+    ports:
+      - 5435:5432
+    restart: unless-stopped
+    volumes:
+      - 'db_data:/var/lib/postgresql/data'
+    networks:
+      - techcave
+
+volumes:
+  app:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${PWD}
+      o: bind
+  app_node_modules:
+  db_data:
+# Driver_opts
+# type and o goes to none and bind. device would be the project root, hence PWD @root.
+
+networks:
+  techcave:
+    name: techcave
+    driver: bridge
