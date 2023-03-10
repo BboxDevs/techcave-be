@@ -1,0 +1,11 @@
+.husky
+db/Dockerfile-pg
+db/test.sh
+node_modules
+.*
+.*/
+
+docker-compose*
+Dockerfile*
+
+README.md

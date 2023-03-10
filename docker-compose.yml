@@ -9,7 +9,7 @@ services:
     ports:
       - '${PORT}:${PORT}'
     volumes:
-      - 'app:/app'
+      - 'app:/app/src:ro'
       # included below to have separate binding for node modules
       - 'app_node_modules:/app/node_modules'
     links:
@@ -46,7 +46,7 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: ${PWD}
+      device: ${PWD}/src
       o: bind
   app_node_modules:
   db_data:
