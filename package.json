@@ -51,7 +51,8 @@
     "prestart": "tsc",
     "start": "node ./dist/index.js",
     "dev:docker:up": "docker-compose -f docker-compose.yml up --build -d",
-    "dev:docker:down": "docker-compose down"
+    "dev:docker:down": "docker-compose down",
+    "db:reset": "prisma migrate reset"
   },
   "nodemonConfig": {
     "ext": "ts",

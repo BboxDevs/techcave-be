@@ -15,6 +15,21 @@
 
 1. Run `yarn` to install of the dependencies
 2. Run `yarn dev` to run local server
+3. Migrate prisma models to database. Be warned that running both commands will delete all of the existing data on your database
+   1. If the database is not set up, run `yarn db:migrate`
+   2. If the database is already set up, run `yarn db:reset`.
+
+## Running on docker development
+
+### Requirements
+
+1. Docker
+2. Docker-compose
+
+### Development
+
+1. To start docker services, run `yarn dev:docker:up`. This will pull all the images from the registry if it's not already in your local computer. The next step will be building the images of the api and the database.
+2. To stop docker services, run `yarn dev:docker:down`. `-v` was not passed on the actual docker-compose command to have the data persist.
 
 ## Additional information
 
@@ -41,3 +56,5 @@ Since path mapping has been implemented on tsconfig, issues arise when src was c
   addAlias('@', __dirname);
   ```
 - The reason for adding this programmatically and not on the package.json is due to issues when running `yarn dev`. There's no guarantee that `dist` folder exists at the time on running locally on dev.
+
+### Prisma
