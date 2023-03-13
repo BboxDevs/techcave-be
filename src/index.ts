@@ -16,7 +16,7 @@ import { PORT } from '@/config/internal';
 const app = express();
 const httpServer = http.createServer(app);
 
-const apolloServer = new ApolloServer<ApolloContext>({
+const apolloServer: ApolloServer = new ApolloServer<ApolloContext>({
   typeDefs,
   resolvers,
   plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],

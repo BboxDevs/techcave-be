@@ -11,6 +11,7 @@
     "@graphql-codegen/introspection": "3.0.1",
     "@graphql-codegen/typescript": "3.0.2",
     "@graphql-codegen/typescript-resolvers": "3.1.1",
+    "@prisma/client": "^4.11.0",
     "@types/cors": "^2.8.13",
     "@types/module-alias": "^2.0.1",
     "@types/node": "^18.14.6",
@@ -49,7 +50,7 @@
     "dev": "nodemon",
     "prestart": "tsc",
     "start": "node ./dist/index.js",
-    "dev:docker:up": "docker-compose up --build -d",
+    "dev:docker:up": "docker-compose -f docker-compose.yml up --build -d",
     "dev:docker:down": "docker-compose down"
   },
   "nodemonConfig": {

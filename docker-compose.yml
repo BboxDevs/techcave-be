@@ -10,8 +10,8 @@ services:
       # and that's why we're using relative path here. Relative to context
       dockerfile: docker/Dockerfile-dev
     # environment to overrider .env file. See precendence: https://docs.docker.com/compose/environment-variables/envvars-precedence/
-    environment:
-      - DATABASE_URL='postgres://${DB_USERNAME}:${DB_PASSWORD}@db:5432/${DB_DATABASE}?schema=public'
+    # environment:
+    #   - DATABASE_URL='postgres://${DB_USERNAME}:${DB_PASSWORD}@db:5432/${DB_DATABASE}?schema=public'
     env_file:
       - .env
     ports:
@@ -37,12 +37,14 @@ services:
         - DB_DATABASE=${DB_DATABASE:-jobs}
         - DB_USERNAME=${DB_USERNAME:-techcave}
         - DB_PASSWORD=${DB_PASSWORD:-password}
+    environment:
+      - DATABASE_URL="postgresql://${DB_USERNAME}:${DB_PASSWORD}@db:5432/${DB_DATABASE}?schema=public"
     env_file:
       - .env
     expose:
       - 5432
     ports:
-      - 5433:5432
+      - 5432:5432
     restart: unless-stopped
     volumes:
       - 'db_data:/var/lib/postgresql/data'

@@ -7,8 +7,9 @@ WORKDIR /app
 # context of the build. See docker-compose.yml at root
 COPY ../package.json package.json
 COPY ../yarn.lock  yarn.lock
+COPY ../prisma  ./prisma/
 
-RUN npm pkg delete prepare
+RUN npm pkg delete scripts.prepare
 RUN yarn
 
 COPY ../ .
