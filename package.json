@@ -52,7 +52,9 @@
     "start": "node ./dist/index.js",
     "dev:docker:up": "docker-compose -f docker-compose.yml up --build -d",
     "dev:docker:down": "docker-compose down",
-    "db:reset": "prisma migrate reset"
+    "db:migrate": "prisma migrate dev",
+    "db:reset": "prisma migrate reset",
+    "db:seed": "ts-node prisma/seed/seed.ts"
   },
   "nodemonConfig": {
     "ext": "ts",

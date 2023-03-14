@@ -42,6 +42,21 @@ export type Applicant = User & {
   role: Role;
 };
 
+export type Application = {
+  __typename?: 'Application';
+  applicant: Applicant;
+  applicationStatus: ApplicationStatus;
+  id: Scalars['ID'];
+  job: Job;
+};
+
+export enum ApplicationStatus {
+  Accepted = 'ACCEPTED',
+  Rejected = 'REJECTED',
+  Reviewing = 'REVIEWING',
+  Submitted = 'SUBMITTED',
+}
+
 export type Employer = User & {
   __typename?: 'Employer';
   company?: Maybe<Scalars['String']>;
@@ -195,6 +210,8 @@ export type DirectiveResolverFn<
 export type ResolversTypes = {
   Admin: ResolverTypeWrapper<Admin>;
   Applicant: ResolverTypeWrapper<Applicant>;
+  Application: ResolverTypeWrapper<Application>;
+  ApplicationStatus: ApplicationStatus;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Employer: ResolverTypeWrapper<Employer>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
@@ -211,6 +228,7 @@ export type ResolversTypes = {
 export type ResolversParentTypes = {
   Admin: Admin;
   Applicant: Applicant;
+  Application: Application;
   Boolean: Scalars['Boolean'];
   Employer: Employer;
   ID: Scalars['ID'];
@@ -243,6 +261,21 @@ export type ApplicantResolvers<
   lastName?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   password?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   role?: Resolver<ResolversTypes['Role'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ApplicationResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Application'] = ResolversParentTypes['Application']
+> = {
+  applicant?: Resolver<ResolversTypes['Applicant'], ParentType, ContextType>;
+  applicationStatus?: Resolver<
+    ResolversTypes['ApplicationStatus'],
+    ParentType,
+    ContextType
+  >;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  job?: Resolver<ResolversTypes['Job'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -319,6 +352,7 @@ export type WelcomeResolvers<
 export type Resolvers<ContextType = any> = {
   Admin?: AdminResolvers<ContextType>;
   Applicant?: ApplicantResolvers<ContextType>;
+  Application?: ApplicationResolvers<ContextType>;
   Employer?: EmployerResolvers<ContextType>;
   Job?: JobResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;

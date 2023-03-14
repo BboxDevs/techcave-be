@@ -30,6 +30,9 @@
 
 1. To start docker services, run `yarn dev:docker:up`. This will pull all the images from the registry if it's not already in your local computer. The next step will be building the images of the api and the database.
 2. To stop docker services, run `yarn dev:docker:down`. `-v` was not passed on the actual docker-compose command to have the data persist.
+3. Migrate prisma models to database. Be warned that running both commands will delete all of the existing data on your database
+   1. If the database is not set up, run `yarn db:migrate`
+   2. If the database is already set up, run `yarn db:reset`.
 
 ## Additional information
 

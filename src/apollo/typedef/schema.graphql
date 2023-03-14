@@ -6,6 +6,13 @@ enum Role {
   ADMIN
 }
 
+enum ApplicationStatus {
+  SUBMITTED
+  REVIEWING
+  REJECTED
+  ACCEPTED
+}
+
 interface User {
   id: ID!
   email: String!
@@ -46,6 +53,13 @@ type Job {
   description: String!
   contact: Employer!
   externalLink: Url
+}
+
+type Application {
+  id: ID!
+  applicant: Applicant!
+  job: Job!
+  applicationStatus: ApplicationStatus!
 }
 
 type Welcome {
