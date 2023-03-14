@@ -3,8 +3,10 @@
 ## Tech stacks
 
 - Express
+- Apollo Server
 - GraphQL
 - Prisma
+- Postgres
 
 ## Requirements
 
@@ -15,9 +17,7 @@
 
 1. Run `yarn` to install of the dependencies
 2. Run `yarn dev` to run local server
-3. Migrate prisma models to database. Be warned that running both commands will delete all of the existing data on your database
-   1. If the database is not set up, run `yarn db:migrate`
-   2. If the database is already set up, run `yarn db:reset`.
+3. Run `yarn db:reset` to migrate prisma models to database. Be warned that this command will delete all of the existing data on your database
 
 ## Running on docker development
 
@@ -28,11 +28,8 @@
 
 ### Development
 
-1. To start docker services, run `yarn dev:docker:up`. This will pull all the images from the registry if it's not already in your local computer. The next step will be building the images of the api and the database.
+1. To start docker services, run `yarn dev:docker:up`. This will pull all the images from the registry if it's not already in your local computer. This will also migrate the models into the database and does the seeding as well
 2. To stop docker services, run `yarn dev:docker:down`. `-v` was not passed on the actual docker-compose command to have the data persist.
-3. Migrate prisma models to database. Be warned that running both commands will delete all of the existing data on your database
-   1. If the database is not set up, run `yarn db:migrate`
-   2. If the database is already set up, run `yarn db:reset`.
 
 ## Additional information
 
@@ -61,3 +58,13 @@ Since path mapping has been implemented on tsconfig, issues arise when src was c
 - The reason for adding this programmatically and not on the package.json is due to issues when running `yarn dev`. There's no guarantee that `dist` folder exists at the time on running locally on dev.
 
 ### Prisma
+
+- `prisma generate` is included under the hood of `prisma migrate dev`
+- `prisma migrate dev` and `prisma reset` also runs the seeding automatically as long as the following can be found on package.json
+  ```
+  "prisma": {
+      "seed": [seeding script here]
+  }
+  ```
+  1. You can skip the seeding by adding `--skip-seed` flag on `prisma migrate dev` or `prisma migrate rest`
+  2. Some note: for some reason, seeding was not working on `prisma migrate dev`. There might be some missing information. Please add to issue if reason behind it is found.
