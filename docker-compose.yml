@@ -27,6 +27,7 @@ services:
         condition: service_healthy
     networks:
       - techcave
+    # Added migration with yarn dev for docker run
     command: ./prisma/migrate.sh
 
   db:
