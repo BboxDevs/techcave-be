@@ -31,6 +31,18 @@
 1. To start docker services, run `yarn dev:docker:up`. This will pull all the images from the registry if it's not already in your local computer. This will also migrate the models into the database and does the seeding as well
 2. To stop docker services, run `yarn dev:docker:down`. `-v` was not passed on the actual docker-compose command to have the data persist.
 
+## Models
+
+There are two different models used for this project:
+
+1. Graphql - for any requests
+
+   - Run `yarn generate` after making any changes in `schema.graphql`. This will update the generated types for ts.
+
+2. Prisma - for database service
+
+   - Run `yarn db:migrate` after making any changes in `schema.prisma`. This will update the connected database and the prisma client.
+
 ## Additional information
 
 This section is not necessarily needed in development. But just some notes included during setup
