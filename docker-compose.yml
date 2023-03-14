@@ -27,7 +27,7 @@ services:
         condition: service_healthy
     networks:
       - techcave
-    command: ./prisma/migrate.sh && yarn dev
+    command: ./prisma/migrate.sh
 
   db:
     container_name: techcave-db
