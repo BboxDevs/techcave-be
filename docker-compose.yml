@@ -10,8 +10,8 @@ services:
       # and that's why we're using relative path here. Relative to context
       dockerfile: docker/Dockerfile-dev
     # environment to overrider .env file. See precendence: https://docs.docker.com/compose/environment-variables/envvars-precedence/
-    # environment:
-    #   - DATABASE_URL='postgres://${DB_USERNAME}:${DB_PASSWORD}@db:5432/${DB_DATABASE}?schema=public'
+    environment:
+      - DATABASE_URL=postgres://${DB_USERNAME}:${DB_PASSWORD}@db:5432/${DB_DATABASE}?schema=public
     env_file:
       - .env
     ports:
@@ -27,6 +27,7 @@ services:
         condition: service_healthy
     networks:
       - techcave
+    command: ./prisma/migrate.sh && yarn dev
 
   db:
     container_name: techcave-db
