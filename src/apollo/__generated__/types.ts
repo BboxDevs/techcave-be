@@ -45,9 +45,9 @@ export type Applicant = User & {
 export type Application = {
   __typename?: 'Application';
   applicant: Applicant;
-  applicationStatus: ApplicationStatus;
   id: Scalars['ID'];
   job: Job;
+  status: ApplicationStatus;
 };
 
 export enum ApplicationStatus {
@@ -56,6 +56,11 @@ export enum ApplicationStatus {
   Reviewing = 'REVIEWING',
   Submitted = 'SUBMITTED',
 }
+
+export type ApplicationStatuses = {
+  __typename?: 'ApplicationStatuses';
+  status?: Maybe<ApplicationStatus>;
+};
 
 export type Employer = User & {
   __typename?: 'Employer';
@@ -80,6 +85,8 @@ export type Job = {
 
 export type Query = {
   __typename?: 'Query';
+  applicationStatuses?: Maybe<Array<Maybe<ApplicationStatuses>>>;
+  roles?: Maybe<Array<Maybe<Roles>>>;
   welcome?: Maybe<Welcome>;
 };
 
@@ -88,6 +95,11 @@ export enum Role {
   Applicant = 'APPLICANT',
   Employer = 'EMPLOYER',
 }
+
+export type Roles = {
+  __typename?: 'Roles';
+  role?: Maybe<Role>;
+};
 
 export type User = {
   email: Scalars['String'];
@@ -212,12 +224,14 @@ export type ResolversTypes = {
   Applicant: ResolverTypeWrapper<Applicant>;
   Application: ResolverTypeWrapper<Application>;
   ApplicationStatus: ApplicationStatus;
+  ApplicationStatuses: ResolverTypeWrapper<ApplicationStatuses>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Employer: ResolverTypeWrapper<Employer>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Job: ResolverTypeWrapper<Job>;
   Query: ResolverTypeWrapper<{}>;
   Role: Role;
+  Roles: ResolverTypeWrapper<Roles>;
   String: ResolverTypeWrapper<Scalars['String']>;
   Url: ResolverTypeWrapper<Scalars['Url']>;
   User: ResolversTypes['Applicant'] | ResolversTypes['Employer'];
@@ -229,11 +243,13 @@ export type ResolversParentTypes = {
   Admin: Admin;
   Applicant: Applicant;
   Application: Application;
+  ApplicationStatuses: ApplicationStatuses;
   Boolean: Scalars['Boolean'];
   Employer: Employer;
   ID: Scalars['ID'];
   Job: Job;
   Query: {};
+  Roles: Roles;
   String: Scalars['String'];
   Url: Scalars['Url'];
   User: ResolversParentTypes['Applicant'] | ResolversParentTypes['Employer'];
@@ -269,13 +285,25 @@ export type ApplicationResolvers<
   ParentType extends ResolversParentTypes['Application'] = ResolversParentTypes['Application']
 > = {
   applicant?: Resolver<ResolversTypes['Applicant'], ParentType, ContextType>;
-  applicationStatus?: Resolver<
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  job?: Resolver<ResolversTypes['Job'], ParentType, ContextType>;
+  status?: Resolver<
     ResolversTypes['ApplicationStatus'],
     ParentType,
     ContextType
   >;
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  job?: Resolver<ResolversTypes['Job'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ApplicationStatusesResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['ApplicationStatuses'] = ResolversParentTypes['ApplicationStatuses']
+> = {
+  status?: Resolver<
+    Maybe<ResolversTypes['ApplicationStatus']>,
+    ParentType,
+    ContextType
+  >;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -318,7 +346,25 @@ export type QueryResolvers<
   ContextType = any,
   ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']
 > = {
+  applicationStatuses?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['ApplicationStatuses']>>>,
+    ParentType,
+    ContextType
+  >;
+  roles?: Resolver<
+    Maybe<Array<Maybe<ResolversTypes['Roles']>>>,
+    ParentType,
+    ContextType
+  >;
   welcome?: Resolver<Maybe<ResolversTypes['Welcome']>, ParentType, ContextType>;
+};
+
+export type RolesResolvers<
+  ContextType = any,
+  ParentType extends ResolversParentTypes['Roles'] = ResolversParentTypes['Roles']
+> = {
+  role?: Resolver<Maybe<ResolversTypes['Role']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export interface UrlScalarConfig
@@ -353,9 +399,11 @@ export type Resolvers<ContextType = any> = {
   Admin?: AdminResolvers<ContextType>;
   Applicant?: ApplicantResolvers<ContextType>;
   Application?: ApplicationResolvers<ContextType>;
+  ApplicationStatuses?: ApplicationStatusesResolvers<ContextType>;
   Employer?: EmployerResolvers<ContextType>;
   Job?: JobResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
+  Roles?: RolesResolvers<ContextType>;
   Url?: GraphQLScalarType;
   User?: UserResolvers<ContextType>;
   Welcome?: WelcomeResolvers<ContextType>;

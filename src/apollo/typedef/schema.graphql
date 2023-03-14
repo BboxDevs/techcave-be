@@ -59,7 +59,15 @@ type Application {
   id: ID!
   applicant: Applicant!
   job: Job!
-  applicationStatus: ApplicationStatus!
+  status: ApplicationStatus!
+}
+
+type Roles {
+  role: Role
+}
+
+type ApplicationStatuses {
+  status: ApplicationStatus
 }
 
 type Welcome {
@@ -68,4 +76,6 @@ type Welcome {
 
 type Query {
   welcome: Welcome
+  roles: [Roles]
+  applicationStatuses: [ApplicationStatuses]
 }
