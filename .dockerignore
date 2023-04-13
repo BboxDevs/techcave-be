@@ -1,0 +1,9 @@
+.husky
+docker
+node_modules
+.*
+.*/
+
+docker-compose*
+
+README.md

@@ -1,0 +1,81 @@
+scalar Url
+
+enum Role {
+  APPLICANT
+  EMPLOYER
+  ADMIN
+}
+
+enum ApplicationStatus {
+  SUBMITTED
+  REVIEWING
+  REJECTED
+  ACCEPTED
+}
+
+interface User {
+  id: ID!
+  email: String!
+  password: String!
+  role: Role!
+}
+
+type Admin {
+  id: ID!
+  email: String!
+  password: String!
+  role: Role!
+}
+
+type Applicant implements User {
+  id: ID!
+  email: String!
+  password: String!
+  role: Role!
+  firstName: String!
+  lastName: String!
+}
+
+type Employer implements User {
+  id: ID!
+  email: String!
+  password: String!
+  role: Role!
+  firstName: String
+  lastName: String
+  company: String
+}
+
+type Job {
+  id: ID!
+  industry: String!
+  position: String!
+  description: String!
+  contact: Employer!
+  externalLink: Url
+}
+
+type Application {
+  id: ID!
+  applicant: Applicant!
+  job: Job!
+  status: ApplicationStatus!
+}
+
+type Roles {
+  role: Role
+}
+
+type ApplicationStatuses {
+  status: ApplicationStatus
+}
+
+type Welcome {
+  message: String!
+}
+
+type Query {
+  welcome: Welcome
+  roles: [Roles]
+  applicationStatuses: [ApplicationStatuses]
+}

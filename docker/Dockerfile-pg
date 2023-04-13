@@ -1,0 +1,14 @@
+# Separate docker file needed for database in case we need to chang db in the future.
+FROM postgres:14.7
+
+# Please pass in actual values on env variables
+ARG DB_DATABASE="jobs"
+ARG DB_USERNAME="techcave"
+ARG DB_PASSWORD="p@ssw0rd"
+
+ENV POSTGRES_USER $DB_USERNAME
+ENV POSTGRES_PASSWORD $DB_PASSWORD
+ENV POSTGRES_DB $DB_DATABASE
+
+HEALTHCHECK --interval=30s --timeout=1m30s --start-period=5s --retries=3 CMD pg_isready -U $POSTGRES_USER -d $POSTGRES_DB
+

@@ -1,0 +1,71 @@
+version: '2'
+
+services:
+  api:
+    container_name: techcave-api
+    build:
+      # used context at root to be able to copy everything outside
+      # where the dockerfile is located
+      context: .
+      # and that's why we're using relative path here. Relative to context
+      dockerfile: docker/Dockerfile-dev
+    # environment to overrider .env file. See precendence: https://docs.docker.com/compose/environment-variables/envvars-precedence/
+    environment:
+      - DATABASE_URL=postgres://${DB_USERNAME}:${DB_PASSWORD}@db:5432/${DB_DATABASE}?schema=public
+    env_file:
+      - .env
+    ports:
+      - '${PORT}:${PORT}'
+    volumes:
+      - 'app:/app/src:ro'
+      # included below to have separate binding for node modules
+      - 'app_node_modules:/app/node_modules'
+    links:
+      - 'db:postgres'
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - techcave
+    # Added migration with yarn dev for docker run
+    command: ./prisma/migrate.sh
+
+  db:
+    container_name: techcave-db
+    build:
+      context: .
+      dockerfile: docker/Dockerfile-pg
+      args:
+        - DB_DATABASE=${DB_DATABASE:-jobs}
+        - DB_USERNAME=${DB_USERNAME:-techcave}
+        - DB_PASSWORD=${DB_PASSWORD:-password}
+    environment:
+      - DATABASE_URL="postgresql://${DB_USERNAME}:${DB_PASSWORD}@db:5432/${DB_DATABASE}?schema=public"
+    env_file:
+      - .env
+    expose:
+      - 5432
+    ports:
+      - 5432:5432
+    restart: unless-stopped
+    volumes:
+      - 'db_data:/var/lib/postgresql/data'
+    networks:
+      - techcave
+
+volumes:
+  app:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${PWD}/src
+      o: bind
+  app_node_modules:
+  db_data:
+# Driver_opts
+# type and o goes to none and bind. device would be the project root, hence PWD @root.
+
+networks:
+  techcave:
+    name: techcave
+    driver: bridge
